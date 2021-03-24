@@ -18,4 +18,4 @@ server.on('listening', () => {
   console.log(`server listening ${address.address}:${address.port}`);
 });
 
-server.bind(3000)
+server.bind(3000, '127.0.0.1')

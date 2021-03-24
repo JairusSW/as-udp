@@ -54,6 +54,11 @@ const imports = {
 
             socket.close()
 
+        },
+        bindUDP: (port, address) => {
+
+            socket.bind(port, address)
+
         }
     }
 };
@@ -63,9 +68,6 @@ require('as-console/bind')(imports)
 wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/optimized.wasm"), imports);
 
 module.exports = wasmModule.exports;
-
-let num = wasmModule.exports.getX();
-console.log(`returned number=${num}`);
 
 console.log(wasmModule.importObject.env)
 

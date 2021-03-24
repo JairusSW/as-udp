@@ -6,6 +6,7 @@ import { console } from 'as-console'
 declare function sendUDP(data: Uint8Array, port: number, address: string): void
 declare function initUDP(type: string): void
 declare function closeUDP(): void
+declare function bindUDP(port: number, address: string): void
 
 // API
 export class UDPSocket {
@@ -19,6 +20,10 @@ export class UDPSocket {
   }
   close(): void {
     closeUDP()
+  }
+  bind(port: number, address: string): void {
+
+    bindUDP(port, address)
   }
 }
 
@@ -53,12 +58,20 @@ export function onclose(): void {}
 
 export function onconnect(): void {}
 
-// Testing
+// Client/Server Testing
 
-export function test(): void {
+export function client(): void {
 
   const socket = new UDPSocket('udp4')
 
   socket.send(new Bitray('Hello From AssemblyScript!', 'utf8').binary, 3000, 'localhost')
+
+}
+
+export function server(): void {
+
+  const socket = new UDPSocket('udp4')
+
+  socket.bind(3000, '127.0.0.1')
 
 }
