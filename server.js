@@ -11,6 +11,8 @@ server.on('message', (msg, info) => {
 
   server.send('Hello, AssemblyScript!', info.port, info.address)
 
+  console.log('Sending Response Back')
+
 });
 
 server.on('listening', () => {
@@ -18,4 +20,4 @@ server.on('listening', () => {
   console.log(`server listening ${address.address}:${address.port}`);
 });
 
-server.bind(3000, '127.0.0.1')
+server.bind(3000)

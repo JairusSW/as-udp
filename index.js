@@ -3,7 +3,8 @@ const loader = require("as-bind").AsBind;
 const Bitray = require('bitray')
 const dgram = require('dgram');
 
-let socket = dgram.createSocket('udp4')
+let socket
+
 let wasmModule
 
 const imports = {
@@ -32,7 +33,9 @@ const imports = {
 
             socket.on('listening', () => {
 
-                if (wasmModule.exports.onlistening) wasmModule.exports.onlistening()
+                const address = socket.address()
+
+                if (wasmModule.exports.onlistening) wasmModule.exports.onlistening(address.address, address.port.toString(), address.family)
 
             })   
 
@@ -65,14 +68,6 @@ const imports = {
 
 require('as-console/bind')(imports)
 
-wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/optimized.wasm"), imports);
+wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/untouched.wasm"), imports);
 
 module.exports = wasmModule.exports;
-
-// Test Server
-
-wasmModule.exports.server()
-
-// Test Client
-
-wasmModule.exports.client()

@@ -7,11 +7,15 @@ declare function sendUDP(data: Uint8Array, port: number, address: string): void
 declare function initUDP(type: string): void
 declare function closeUDP(): void
 declare function bindUDP(port: number, address: string): void
+// Miscellanious
 
 // API
 export class UDPSocket {
+
   constructor(type: string) {
+
     initUDP(type)
+
   }
   send(data: Uint8Array, port: number, address: string): void {
 
@@ -24,6 +28,7 @@ export class UDPSocket {
   bind(port: number, address: string): void {
 
     bindUDP(port, address)
+
   }
 }
 
@@ -52,11 +57,23 @@ export function ondata(data: Uint8Array, info: Array<string>): void {
 
 export function onerror(error: string): void {}
 
-export function onlistening(): void {}
+export function onlistening(address: string, port: string, family: string): void {
 
-export function onclose(): void {}
+  console.log('Listening On: ' + address + ':' + port + ' (' + family + ')')
 
-export function onconnect(): void {}
+}
+
+export function onclose(): void {
+
+  console.log('Socket Closed.')
+
+}
+
+export function onconnect(): void {
+
+  console.log('Socket Connected.')
+
+}
 
 // Client/Server Testing
 
@@ -64,7 +81,9 @@ export function client(): void {
 
   const socket = new UDPSocket('udp4')
 
-  socket.send(new Bitray('Hello From AssemblyScript!', 'utf8').binary, 3000, 'localhost')
+  console.log('Sending Message')
+
+  socket.send(Uint8Array.wrap(String.UTF8.encode('Hello From AssemblyScript!')), 3000, 'localhost')
 
 }
 
