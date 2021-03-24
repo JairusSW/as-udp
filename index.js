@@ -64,4 +64,9 @@ wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/optimize
 
 module.exports = wasmModule.exports;
 
+let num = wasmModule.exports.getX();
+console.log(`returned number=${num}`);
+
+console.log(wasmModule.importObject.env)
+
 wasmModule.exports.test()

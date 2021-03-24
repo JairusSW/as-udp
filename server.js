@@ -7,15 +7,9 @@ server.on('error', (err) => {
 
 server.on('message', (msg, info) => {
     
-  console.log(`server got: ${msg} from ${info.address}:${info.port}`);
+  console.log(`${msg} from ${info.address}:${info.port}`);
 
-  server.send('Hey, Client!', info.port, info.address)
-
-  server.send('Hola, Client!', info.port, info.address)
-
-  server.send('So Long, Client!', info.port, info.address)
-
-  server.send('Bye, Client!', info.port, info.address)
+  server.send('Hello, AssemblyScript!', info.port, info.address)
 
 });
 

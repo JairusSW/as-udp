@@ -24,15 +24,24 @@ export class UDPSocket {
 
 // TODO: Callback
 
-export function on(callback: (data: string, info: Array<string>) => {}): void {
+export function on(callback: (data: string) => void): void {
 
   // Somehow call this callback when the ondata event is triggered. I'm stuck!
+
+  // Usage like: 
+  /* 
+  on((data: string) => {
+
+    console.log('Got Some Data: ' + data)
+
+  })
+  */
   
 }
 
 // Listeners
 export function ondata(data: Uint8Array, info: Array<string>): void {
-  console.log(String.UTF8.decode(data.buffer) + info[0] + ':' + info[2])
+  console.log(String.UTF8.decode(data.buffer) + ' from ' + info[0] + ':' + info[2])
   // Need to do Callback for the On Function
 }
 
@@ -50,6 +59,6 @@ export function test(): void {
 
   const socket = new UDPSocket('udp4')
 
-  socket.send(new Bitray('Hello From AssemblyScript Client!', 'utf8').binary, 3000, 'localhost')
+  socket.send(new Bitray('Hello From AssemblyScript!', 'utf8').binary, 3000, 'localhost')
 
 }
