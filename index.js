@@ -69,6 +69,10 @@ wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/optimize
 
 module.exports = wasmModule.exports;
 
-console.log(wasmModule.importObject.env)
+// Test Server
 
-wasmModule.exports.test()
+wasmModule.exports.server()
+
+// Test Client
+
+wasmModule.exports.client()
