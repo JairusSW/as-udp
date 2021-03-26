@@ -3,11 +3,11 @@ const loader = require("as-bind").AsBind;
 const Bitray = require('bitray')
 const dgram = require('dgram');
 
-let socket
-
 let wasmModule
 
 let point
+
+let clients = []
 
 const imports = {
     index: {
@@ -15,14 +15,18 @@ const imports = {
 
             point = pointer
 
-            console.log('Got Pointer: ', pointer)
+            console.log('Got Pointer (JS): ', pointer)
 
         },
         initUDP: (type) => {
 
-            socket = dgram.createSocket(type)
+            console.log('(JS) Created New Client. Id: ', clients.length)
 
-            socket.on('message', (data, info) => {
+            clients.push(dgram.createSocket(type))
+
+            let id = clients.length - 1
+
+            clients[id].on('message', (data, info) => {
 
                 if (wasmModule.exports.ondata) wasmModule.exports.ondata(data, [info.address, info.family, info.port.toString(), info.size.toString()])
             
@@ -32,52 +36,54 @@ const imports = {
 
                 callbackFunc(12345)
 
-                console.log('callback: ', callbackFunc)
+                console.log('callback (JS): ', callbackFunc)
 
             })
             
-            socket.on('error', (err) => {
+            clients[id].on('error', (err) => {
             
                 if (wasmModule.exports.onerror) wasmModule.exports.onerror(err)
             
             })
 
-            socket.on('close', () => {
+            clients[id].on('close', () => {
 
                 if (wasmModule.exports.onclose) wasmModule.exports.onclose()
 
             })            
 
-            socket.on('listening', () => {
+            clients[id].on('listening', () => {
 
-                const address = socket.address()
+                const address = clients[id].address()
 
                 if (wasmModule.exports.onlistening) wasmModule.exports.onlistening(address.address, address.port.toString(), address.family)
 
             })   
 
-            socket.on('connect', () => {
+            clients[id].on('connect', () => {
 
                 if (wasmModule.exports.onconnect) wasmModule.exports.onconnect()
 
             })   
 
-        },
-        sendUDP: (message, port, address) => {
+            return id
 
-            socket.send(message, port, address)
+        },
+        sendUDP: (id, message, port, address) => {
+
+            clients[id].send(message, port, address)
 
             return
 
         },
-        closeUDP: () => {
+        closeUDP: (id) => {
 
-            socket.close()
+            clients[id].close()
 
         },
-        bindUDP: (port, address) => {
+        bindUDP: (id, port, address) => {
 
-            socket.bind(port, address)
+            clients[id].bind(port, address)
 
         }
     }

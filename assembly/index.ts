@@ -3,40 +3,35 @@ import { Bitray } from 'as-bitray'
 import { console } from 'as-console'
 
 // JS Imports
-declare function sendUDP(data: Uint8Array, port: number, address: string): void
-declare function initUDP(type: string): void
-declare function closeUDP(): void
-declare function bindUDP(port: number, address: string): void
+declare function sendUDP(id: i32, data: Uint8Array, port: number, address: string): void
+declare function initUDP(type: string): i32
+declare function closeUDP(id: i32): void
+declare function bindUDP(id: i32, port: number, address: string): void
 declare function sendPointer(a: i32): void
 // Miscellanious
-
-export let callbackData = (data: Uint8Array): void => {
-
-  console.log('Got CallbackData: ' + String.UTF8.decode(data.buffer))
-
-}
-
-export let callbackDataPointer = load<i32>(changetype<usize>(callbackData))
-
 // API
 export class UDPSocket {
 
+  private id: i32 = 0
+
   constructor(type: string) {
 
-    initUDP(type)
+    let id = initUDP(type)
+
+    this.id = id
 
   }
   send(data: Uint8Array, port: number, address: string): void {
 
-    sendUDP(data, port, address)
+    sendUDP(this.id, data, port, address)
 
   }
   close(): void {
-    closeUDP()
+    closeUDP(this.id)
   }
   bind(port: number, address: string): void {
 
-    bindUDP(port, address)
+    bindUDP(this.id, port, address)
 
   }
 
@@ -64,9 +59,8 @@ export class UDPSocket {
   }
 }
 
-// Listeners
+// (deprecate soon. Shift to .on()) Listeners
 export function ondata(data: Uint8Array, info: Array<string>): void {
-  console.log(String.UTF8.decode(data.buffer) + ' from ' + info[0] + ':' + info[2])
   // Need to do Callback for the On Function
 }
 
@@ -92,23 +86,35 @@ export function onconnect(): void {
 
 // Client/Server Testing
 
-export let cb = (data: number): void => {
-
-  console.log('a string, yay!')
-
-  console.log('Data from Callback Func: ' + data.toString())
-  
-}
-
-export function client(): void {
+export function client1(): void {
 
   const socket = new UDPSocket('udp4')
 
-  console.log('Sending Message')
+  console.log('Client1 Sending Message (AS)...')
 
-  socket.send(Uint8Array.wrap(String.UTF8.encode('Hello From AssemblyScript!')), 3000, 'localhost')
+  socket.send(Uint8Array.wrap(String.UTF8.encode('Client1, Hello From AssemblyScript!')), 3000, 'localhost')
 
-  socket.on('data', cb)
+  socket.on('data', (data) => {
+
+    console.log('Client1 Data from Callback Func (AS): ' + data.toString())
+    
+  })
+  
+}
+
+export function client2(): void {
+
+  const socket = new UDPSocket('udp4')
+
+  console.log('Client2 Sending Message (AS)...')
+
+  socket.send(Uint8Array.wrap(String.UTF8.encode('Client2, Hello From AssemblyScript!')), 3000, 'localhost')
+
+  socket.on('data', (data) => {
+
+    console.log('Client2 Data from Callback Func (AS): ' + data.toString())
+    
+  })
   
 }
 

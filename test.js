@@ -6,4 +6,4 @@ const myModule = require('./index');
 
 // Test Client
 
-myModule.client()
+myModule.client1()

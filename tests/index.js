@@ -6,4 +6,6 @@ const myModule = require("..");
 
 // Test Client
 
-myModule.client()
+myModule.client1()
+
+//myModule.client2()
