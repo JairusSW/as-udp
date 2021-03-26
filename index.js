@@ -30,7 +30,7 @@ const imports = {
 
                 const callbackFunc = table.get(point)
 
-               // callbackFunc()
+                callbackFunc(12345)
 
                 console.log('callback: ', callbackFunc)
 

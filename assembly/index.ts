@@ -42,7 +42,7 @@ export class UDPSocket {
 
   // TODO: Callback
 
-  on(event: string, callback: (data: string) => void): void {
+  on(event: string, callback: (data: number) => void): void {
 
     sendPointer(load<i32>(changetype<usize>(callback)))
 
@@ -92,9 +92,11 @@ export function onconnect(): void {
 
 // Client/Server Testing
 
-export let cb = (data: string): void => {
+export let cb = (data: number): void => {
 
-  console.log('Got data: ' + data)
+  console.log('a string, yay!')
+
+  console.log(data.toString())
   
 }
 
