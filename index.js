@@ -7,15 +7,23 @@ let wasmModule
 
 let point
 
+let pointerFunctions = {
+    message: null,
+    error: null,
+    listening: null,
+    connect: null,
+    close: null
+}
+
 let clients = []
 
 const imports = {
     index: {
-        sendPointer: (pointer) => {
+        sendPointer: (event, pointer) => {
 
             point = pointer
 
-            console.log('Got Pointer (JS): ', pointer)
+            pointerFunctions[event.toLowerCase().trim()] = wasmModule.exports.table.get(pointer)
 
         },
         initUDP: (type) => {
@@ -27,16 +35,48 @@ const imports = {
             let id = clients.length - 1
 
             clients[id].on('message', (data, info) => {
-
-                if (wasmModule.exports.ondata) wasmModule.exports.ondata(data, [info.address, info.family, info.port.toString(), info.size.toString()])
             
-                const table = wasmModule.exports.table
+                // Only supports numbers :(
 
-                const callbackFunc = table.get(point)
+                const func = pointerFunctions['message']
 
-                callbackFunc(12345)
+                if (isNaN(parseInt(data.toString()))) return
+                // Only numbers are allowed.
 
-                console.log('callback (JS): ', callbackFunc)
+                if (typeof func === 'function') func(parseInt(data.toString()))
+                // Send if type is number
+
+            })
+
+            clients[id].on('listening', () => {
+            
+                const func = pointerFunctions['listening']
+
+                if (typeof func === 'function') func()
+
+            })
+
+            clients[id].on('close', () => {
+            
+                const func = pointerFunctions['close']
+
+                if (typeof func === 'function') func()
+
+            })
+
+            clients[id].on('error', () => {
+            
+                const func = pointerFunctions['error']
+
+                if (typeof func === 'function') func()
+
+            })
+
+            clients[id].on('connect', () => {
+            
+                const func = pointerFunctions['connect']
+
+                if (typeof func === 'function') func()
 
             })
             

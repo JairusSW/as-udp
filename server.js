@@ -9,7 +9,7 @@ server.on('message', (msg, info) => {
     
   console.log(`${msg} from ${info.address}:${info.port}`);
 
-  server.send('Hello, AssemblyScript!', info.port, info.address)
+  server.send('123456789', info.port, info.address)
 
   console.log('Sending Response Back')
 

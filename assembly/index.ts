@@ -7,7 +7,7 @@ declare function sendUDP(id: i32, data: Uint8Array, port: number, address: strin
 declare function initUDP(type: string): i32
 declare function closeUDP(id: i32): void
 declare function bindUDP(id: i32, port: number, address: string): void
-declare function sendPointer(a: i32): void
+declare function sendPointer(event: string, pointer: i32, id: i32): void
 // Miscellanious
 
 // API
@@ -36,10 +36,10 @@ export class UDPSocket {
 
   }
 
-  // WIP: Callback
+  // WIP: Add string support for as-bind
   on(event: string, callback: (data: number) => void): void {
-// Add selectable events. Rn, it defaults to socket.on('message', ...
-    sendPointer(load<i32>(changetype<usize>(callback)))
+  // Add selectable events. Rn, it defaults to socket.on('message', ... ✅
+    sendPointer(event, load<i32>(changetype<usize>(callback)), this.id)
     
   }
 }
@@ -52,13 +52,20 @@ export function client1(): void {
 
   console.log('Client1 Sending Message (AS)...')
 
-  socket.send(Uint8Array.wrap(String.UTF8.encode('Client1, Hello From AssemblyScript!')), 3000, 'localhost')
-
-  socket.on('data', (data) => {
+  socket.on('message', (data) => {
 
     console.log('Client1 Data from Callback Func (AS): ' + data.toString())
     
   })
+
+  socket.on('listening', () => {
+
+    console.log('Client Is Listening')
+    
+  })
+
+  socket.send(Uint8Array.wrap(String.UTF8.encode('Client1, Hello From AssemblyScript!')), 3000, 'localhost')
+  
   
 }
 // Test for multiple Clients ✅
@@ -70,7 +77,7 @@ export function client2(): void {
 
   socket.send(Uint8Array.wrap(String.UTF8.encode('Client2, Hello From AssemblyScript!')), 3000, 'localhost')
 
-  socket.on('data', (data) => {
+  socket.on('message', (data) => {
 
     console.log('Client2 Data from Callback Func (AS): ' + data.toString())
 
