@@ -96,7 +96,7 @@ export let cb = (data: number): void => {
 
   console.log('a string, yay!')
 
-  console.log('Data from Callback Func: ', data.toString())
+  console.log('Data from Callback Func: ' + data.toString())
   
 }
 
