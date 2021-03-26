@@ -7,7 +7,16 @@ declare function sendUDP(data: Uint8Array, port: number, address: string): void
 declare function initUDP(type: string): void
 declare function closeUDP(): void
 declare function bindUDP(port: number, address: string): void
+declare function sendPointer(a: i32): void
 // Miscellanious
+
+export let callbackData = (data: Uint8Array): void => {
+
+  console.log('Got CallbackData: ' + String.UTF8.decode(data.buffer))
+
+}
+
+export let callbackDataPointer = load<i32>(changetype<usize>(callbackData))
 
 // API
 export class UDPSocket {
@@ -30,23 +39,29 @@ export class UDPSocket {
     bindUDP(port, address)
 
   }
-}
 
-// TODO: Callback
+  // TODO: Callback
 
-export function on(callback: (data: string) => void): void {
+  on(event: string, callback: (data: string) => void): void {
 
-  // Somehow call this callback when the ondata event is triggered. I'm stuck!
+    sendPointer(load<i32>(changetype<usize>(callback)))
 
-  // Usage like: 
-  /* 
-  on((data: string) => {
+    // Somehow call this callback when the ondata event is triggered (add onlistening/onerror/ect later). I'm stuck!
 
-    console.log('Got Some Data: ' + data)
+    // Usage like: 
+    /* 
+    const socket = new UDPSocket('udp4')
 
-  })
-  */
-  
+    socket.send(Uint8Array.wrap(String.UTF8.encode('Hello From AssemblyScript!')), 3000, 'localhost')
+    
+    socket.on('message', (data: string) => {
+
+      console.log('Got Some Data: ' + data)
+
+    })
+    */
+    
+  }
 }
 
 // Listeners
@@ -77,6 +92,12 @@ export function onconnect(): void {
 
 // Client/Server Testing
 
+export let cb = (data: string): void => {
+
+  console.log('Got data: ' + data)
+  
+}
+
 export function client(): void {
 
   const socket = new UDPSocket('udp4')
@@ -85,6 +106,8 @@ export function client(): void {
 
   socket.send(Uint8Array.wrap(String.UTF8.encode('Hello From AssemblyScript!')), 3000, 'localhost')
 
+  socket.on('data', cb)
+  
 }
 
 export function server(): void {

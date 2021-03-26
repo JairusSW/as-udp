@@ -7,8 +7,17 @@ let socket
 
 let wasmModule
 
+let point
+
 const imports = {
     index: {
+        sendPointer: (pointer) => {
+
+            point = pointer
+
+            console.log('Got Pointer: ', pointer)
+
+        },
         initUDP: (type) => {
 
             socket = dgram.createSocket(type)
@@ -17,6 +26,14 @@ const imports = {
 
                 if (wasmModule.exports.ondata) wasmModule.exports.ondata(data, [info.address, info.family, info.port.toString(), info.size.toString()])
             
+                const table = wasmModule.exports.table
+
+                const callbackFunc = table.get(point)
+
+               // callbackFunc()
+
+                console.log('callback: ', callbackFunc)
+
             })
             
             socket.on('error', (err) => {
@@ -70,4 +87,5 @@ require('as-console/bind')(imports)
 
 wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/untouched.wasm"), imports);
 
+console.log(wasmModule.exports.getDataCallbackPointer)
 module.exports = wasmModule.exports;

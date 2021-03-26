@@ -9,8 +9,8 @@
     "bitray": "^2.1.1"
   },
   "scripts": {
-    "asbuild:untouched": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts assembly/index.ts --target debug --runtime incremental --exportRuntime",
-    "asbuild:optimized": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts assembly/index.ts --target release --runtime incremental --exportRuntime",
+    "asbuild:untouched": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts assembly/index.ts --target debug --runtime incremental --exportRuntime --exportTable",
+    "asbuild:optimized": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts assembly/index.ts --target release --runtime incremental --exportRuntime --exportTable",
     "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
     "test": "node tests"
   },
