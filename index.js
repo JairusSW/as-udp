@@ -40,32 +40,6 @@ const imports = {
 
             })
             
-            clients[id].on('error', (err) => {
-            
-                if (wasmModule.exports.onerror) wasmModule.exports.onerror(err)
-            
-            })
-
-            clients[id].on('close', () => {
-
-                if (wasmModule.exports.onclose) wasmModule.exports.onclose()
-
-            })            
-
-            clients[id].on('listening', () => {
-
-                const address = clients[id].address()
-
-                if (wasmModule.exports.onlistening) wasmModule.exports.onlistening(address.address, address.port.toString(), address.family)
-
-            })   
-
-            clients[id].on('connect', () => {
-
-                if (wasmModule.exports.onconnect) wasmModule.exports.onconnect()
-
-            })   
-
             return id
 
         },

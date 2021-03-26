@@ -59,31 +59,6 @@ export class UDPSocket {
   }
 }
 
-// (deprecate soon. Shift to .on()) Listeners
-export function ondata(data: Uint8Array, info: Array<string>): void {
-  // Need to do Callback for the On Function
-}
-
-export function onerror(error: string): void {}
-
-export function onlistening(address: string, port: string, family: string): void {
-
-  console.log('Listening On: ' + address + ':' + port + ' (' + family + ')')
-
-}
-
-export function onclose(): void {
-
-  console.log('Socket Closed.')
-
-}
-
-export function onconnect(): void {
-
-  console.log('Socket Connected.')
-
-}
-
 // Client/Server Testing
 
 export function client1(): void {
