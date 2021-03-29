@@ -1,5 +1,5 @@
 const myModule = require('../');
 
-// Test socket
+// Test socket(s)
 
 myModule.test()
