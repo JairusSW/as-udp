@@ -1,5 +1,5 @@
 const fs = require("fs");
-const loader = require("as-bind").AsBind;
+const loader = require("@assemblyscript/loader")
 
 let wasmModule
 
@@ -7,13 +7,19 @@ let sockets = []
 
 const dgram = require('dgram');
 
+const { WASI } = require('wasi')
+
+const wasi = new WASI()
+
 const imports = {
+    wasi_snapshot_preview1: wasi.wasiImport,
     index: {
+        wasi_snapshot_preview1: wasi.wasiImport,
         sendPointer: (id, event, pointer) => {
 
             if (!sockets[id]) return
     
-            sockets[id]['pointers'][event.toLowerCase().trim()] = wasmModule.exports.table.get(pointer)
+            sockets[id]['pointers'][wasmModule.exports.__getString(event).toLowerCase().trim()] = wasmModule.exports.table.get(pointer)
     
         },
         initUDP: (type) => {
@@ -36,15 +42,12 @@ const imports = {
             let socket = sockets[id]
     
             socket.socket.on('message', (data, info) => {
-            
-                // Only supports numbers :(
+
+                const messagePtr = wasmModule.exports.__newString(data.toString('utf8'))
     
                 const func = socket.pointers['message']
     
-                if (isNaN(parseInt(data.toString()))) return
-                // Only numbers are allowed.
-    
-                if (typeof func === 'function') func(parseInt(data.toString()))
+                if (typeof func === 'function') func(messagePtr)
                 // Send if type is number
     
             })
@@ -65,11 +68,17 @@ const imports = {
     
             })
     
-            socket.socket.on('error', () => {
+            socket.socket.on('error', (err) => {
             
                 const func = socket.pointers['error']
     
-                if (typeof func === 'function') func()
+                if (typeof func === 'function') {
+                    
+                    if (err) return func(__newString(err.message))
+
+                    func()
+
+                }
     
             })
     
@@ -86,7 +95,7 @@ const imports = {
         },
         sendUDP: (id, message, port, address) => {
     
-            sockets[id]['socket'].send(message, port, address)
+            sockets[id]['socket'].send(Buffer.from(wasmModule.exports.__getArray(message)), port, wasmModule.exports.__getString(address))
     
             return
     
@@ -98,14 +107,14 @@ const imports = {
         },
         bindUDP: (id, port, address) => {
     
-            sockets[id]['socket'].bind(port, address)
+            sockets[id]['socket'].bind(port, wasmModule.exports.__getString(address))
     
         }
     }
 }
 
-require('as-console/bind')(imports)
-
 wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/untouched.wasm"), imports);
 
-module.exports = wasmModule.exports;
+wasi.start(wasmModule)
+
+module.exports = wasmModule.exports

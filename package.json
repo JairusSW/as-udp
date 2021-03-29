@@ -4,12 +4,13 @@
     "as-bind": "^0.6.1",
     "as-bitray": "^2.4.1",
     "as-console": "^3.0.0",
+    "as-wasi": "^0.4.4",
     "assemblyscript": "^0.18.17",
     "bitray": "^2.1.1"
   },
   "scripts": {
-    "asbuild:untouched": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts assembly/index.ts --target debug --runtime incremental --exportRuntime --exportTable",
-    "asbuild:optimized": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts assembly/index.ts --target release --runtime incremental --exportRuntime --exportTable",
+    "asbuild:untouched": "asc assembly/index.ts --target debug --exportRuntime --exportTable",
+    "asbuild:optimized": "asc assembly/index.ts --target release --exportRuntime --exportTable",
     "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
     "test": "node tests",
     "start": "node server.js"

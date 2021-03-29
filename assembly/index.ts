@@ -1,13 +1,13 @@
-import { Bitray } from 'as-bitray'
+import 'wasi'
 
-import { console } from 'as-console'
+import { Console } from 'as-wasi'
 
 // JS Imports
 declare function sendUDP(id: i32, data: Uint8Array, port: number, address: string): void
 declare function initUDP(type: number): i32
 declare function closeUDP(id: i32): void
 declare function bindUDP(id: i32, port: number, address: string): void
-declare function sendPointer(id: number, event: string, pointer: i32): void
+declare function sendPointer(id: i32, event: string, pointer: i32): void
 // Miscellanious
 
 // API
@@ -45,7 +45,7 @@ export class UDPSocket {
   }
 
   // WIP: Add string support for as-bind
-  on(event: string, callback: (data: number) => void): void {
+  on(event: string, callback: (data: string) => void): void {
 
     sendPointer(this.id, event, load<i32>(changetype<usize>(callback)))
     // NOTE: Does not call every time! Only calls if once.
@@ -59,17 +59,17 @@ export function test(): void {
 
   const socket = new UDPSocket('udp4')
 
-  console.log('Sending Message (AS)...')
+  Console.log('Sending Message (AS)...')
 
   socket.on('message', (data) => {
 
-    console.log('Response (AS): ' + data.toString())
+    Console.log('Response (AS): ' + data)
     
   })
 
   socket.on('listening', () => {
 
-    console.log('Listening (AS)')
+    Console.log('Listening (AS)')
     
   })
 
