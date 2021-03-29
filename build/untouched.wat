@@ -2,25 +2,30 @@
  (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_=>_none (func (param i32)))
- (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
+ (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $none_=>_none (func))
- (type $i32_i32_f64_i32_=>_none (func (param i32 i32 f64 i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
+ (type $i32_i32_f64_i32_=>_none (func (param i32 i32 f64 i32)))
  (type $i32_f64_i32_=>_none (func (param i32 f64 i32)))
- (type $i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32) (result i32)))
- (type $i32_i32_=>_f64 (func (param i32 i32) (result f64)))
- (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $none_=>_i32 (func (result i32)))
- (type $f64_=>_i32 (func (param f64) (result i32)))
+ (type $i32_i32_=>_f64 (func (param i32 i32) (result f64)))
+ (type $f64_=>_none (func (param f64)))
+ (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
+ (type $i32_f64_=>_none (func (param i32 f64)))
+ (type $f64_i32_f64_=>_none (func (param f64 i32 f64)))
+ (type $f64_i32_f64_i32_=>_none (func (param f64 i32 f64 i32)))
+ (type $f64_f64_i32_=>_none (func (param f64 f64 i32)))
+ (type $i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32) (result i32)))
- (import "wasi_snapshot_preview1" "fd_write" (func $~lib/bindings/wasi_snapshot_preview1/fd_write (param i32 i32 i32 i32) (result i32)))
- (import "wasi_snapshot_preview1" "proc_exit" (func $~lib/bindings/wasi_snapshot_preview1/proc_exit (param i32)))
- (import "index" "initUDP" (func $assembly/index/initUDP (param f64) (result i32)))
- (import "index" "sendUDP" (func $assembly/index/sendUDP (param i32 i32 f64 i32)))
- (import "index" "closeUDP" (func $assembly/index/closeUDP (param i32)))
- (import "index" "bindUDP" (func $assembly/index/bindUDP (param i32 f64 i32)))
- (import "index" "sendPointer" (func $assembly/index/sendPointer (param i32 i32 i32)))
+ (type $i32_=>_f64 (func (param i32) (result f64)))
+ (type $f64_=>_f64 (func (param f64) (result f64)))
+ (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
+ (import "index" "initUDP" (func $assembly/index/initUDP (param f64) (result f64)))
+ (import "index" "sendUDP" (func $assembly/index/sendUDP (param f64 i32 f64 i32)))
+ (import "index" "closeUDP" (func $assembly/index/closeUDP (param f64)))
+ (import "index" "bindUDP" (func $assembly/index/bindUDP (param f64 f64 i32)))
+ (import "index" "sendPointer" (func $assembly/index/sendPointer (param f64 i32 f64)))
  (memory $0 1)
  (data (i32.const 12) "\1c\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\06\00\00\00u\00d\00p\00\00\00\00\00\00\00")
  (data (i32.const 44) "\1c\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
@@ -35,28 +40,17 @@
  (data (i32.const 476) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00$\00\00\00~\00l\00i\00b\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s\00\00\00\00\00\00\00\00\00")
  (data (i32.const 540) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h\00")
  (data (i32.const 588) "\1c\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\08\00\00\00u\00d\00p\004\00\00\00\00\00")
- (data (i32.const 620) "L\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00.\00\00\00S\00e\00n\00d\00i\00n\00g\00 \00M\00e\00s\00s\00a\00g\00e\00 \00(\00A\00S\00)\00.\00.\00.\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 704) "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 736) "\00\00\00\00\00\00\00\00")
- (data (i32.const 752) "\00\00\00\00\00\00\00\00")
- (data (i32.const 768) "\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 784) "\00\00\00\00\00\00\00\00")
- (data (i32.const 796) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\0e\00\00\00m\00e\00s\00s\00a\00g\00e\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 844) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\1e\00\00\00R\00e\00s\00p\00o\00n\00s\00e\00 \00(\00A\00S\00)\00:\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 908) "\1c\00\00\00\00\00\00\00\00\00\00\00\06\00\00\00\08\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 940) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\12\00\00\00l\00i\00s\00t\00e\00n\00i\00n\00g\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 988) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\1c\00\00\00L\00i\00s\00t\00e\00n\00i\00n\00g\00 \00(\00A\00S\00)\00")
- (data (i32.const 1036) "\1c\00\00\00\00\00\00\00\00\00\00\00\06\00\00\00\08\00\00\00\02\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 1068) "L\00\00\00\00\00\00\00\00\00\00\00\01\00\00\004\00\00\00H\00e\00l\00l\00o\00 \00F\00r\00o\00m\00 \00A\00s\00s\00e\00m\00b\00l\00y\00S\00c\00r\00i\00p\00t\00!\00\00\00\00\00\00\00\00\00")
- (data (i32.const 1148) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\12\00\00\00l\00o\00c\00a\00l\00h\00o\00s\00t\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 1196) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00*\00\00\00O\00b\00j\00e\00c\00t\00 \00a\00l\00r\00e\00a\00d\00y\00 \00p\00i\00n\00n\00e\00d\00\00\00")
- (data (i32.const 1260) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00(\00\00\00O\00b\00j\00e\00c\00t\00 \00i\00s\00 \00n\00o\00t\00 \00p\00i\00n\00n\00e\00d\00\00\00\00\00")
- (data (i32.const 1328) "\07\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00 \00\00\00\00\00\00\00A\00\00\00\02\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 620) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\0e\00\00\00m\00e\00s\00s\00a\00g\00e\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 668) "\1c\00\00\00\00\00\00\00\00\00\00\00\05\00\00\00\08\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 700) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\12\00\00\00l\00i\00s\00t\00e\00n\00i\00n\00g\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 748) "\1c\00\00\00\00\00\00\00\00\00\00\00\05\00\00\00\08\00\00\00\02\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 780) "L\00\00\00\00\00\00\00\00\00\00\00\01\00\00\004\00\00\00H\00e\00l\00l\00o\00 \00F\00r\00o\00m\00 \00A\00s\00s\00e\00m\00b\00l\00y\00S\00c\00r\00i\00p\00t\00!\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 860) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\12\00\00\00l\00o\00c\00a\00l\00h\00o\00s\00t\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 908) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00*\00\00\00O\00b\00j\00e\00c\00t\00 \00a\00l\00r\00e\00a\00d\00y\00 \00p\00i\00n\00n\00e\00d\00\00\00")
+ (data (i32.const 972) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00(\00\00\00O\00b\00j\00e\00c\00t\00 \00i\00s\00 \00n\00o\00t\00 \00p\00i\00n\00n\00e\00d\00\00\00\00\00")
+ (data (i32.const 1040) "\06\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00 \00\00\00\00\00\00\00A\00\00\00\02\00\00\00\00\00\00\00\00\00\00\00")
  (table $0 3 funcref)
  (elem (i32.const 1) $assembly/index/test~anonymous|0 $assembly/index/test~anonymous|1)
- (global $~lib/as-wasi/as-wasi/Time.NANOSECOND (mut i32) (i32.const 1))
- (global $~lib/as-wasi/as-wasi/Time.MILLISECOND (mut i32) (i32.const 0))
- (global $~lib/as-wasi/as-wasi/Time.SECOND (mut i32) (i32.const 0))
  (global $~lib/ASC_SHRINK_LEVEL i32 (i32.const 0))
  (global $~lib/rt/itcms/total (mut i32) (i32.const 0))
  (global $~lib/rt/itcms/threshold (mut i32) (i32.const 0))
@@ -71,11 +65,10 @@
  (global $~lib/ASC_LOW_MEMORY_LIMIT i32 (i32.const 0))
  (global $~argumentsLength (mut i32) (i32.const 0))
  (global $assembly/index/UDPSocket i32 (i32.const 3))
- (global $~lib/rt/__rtti_base i32 (i32.const 1328))
- (global $~lib/memory/__data_end i32 (i32.const 1388))
- (global $~lib/memory/__stack_pointer (mut i32) (i32.const 17772))
- (global $~lib/memory/__heap_base i32 (i32.const 17772))
- (global $~started (mut i32) (i32.const 0))
+ (global $~lib/rt/__rtti_base i32 (i32.const 1040))
+ (global $~lib/memory/__data_end i32 (i32.const 1092))
+ (global $~lib/memory/__stack_pointer (mut i32) (i32.const 17476))
+ (global $~lib/memory/__heap_base i32 (i32.const 17476))
  (export "UDPSocket" (global $assembly/index/UDPSocket))
  (export "test" (func $assembly/index/test))
  (export "__new" (func $~lib/rt/itcms/__new))
@@ -85,29 +78,13 @@
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "memory" (memory $0))
  (export "table" (table $0))
- (export "_start" (func $~start))
  (export "UDPSocket#constructor" (func $export:assembly/index/UDPSocket#constructor))
  (export "UDPSocket#sendBinary" (func $export:assembly/index/UDPSocket#sendBinary))
  (export "UDPSocket#send" (func $export:assembly/index/UDPSocket#send))
  (export "UDPSocket#close" (func $export:assembly/index/UDPSocket#close))
  (export "UDPSocket#bind" (func $export:assembly/index/UDPSocket#bind))
  (export "UDPSocket#on" (func $export:assembly/index/UDPSocket#on))
- (func $start:~lib/as-wasi/as-wasi
-  global.get $~lib/as-wasi/as-wasi/Time.NANOSECOND
-  i32.const 1000000
-  i32.mul
-  global.set $~lib/as-wasi/as-wasi/Time.MILLISECOND
-  global.get $~lib/as-wasi/as-wasi/Time.MILLISECOND
-  i32.const 1000
-  i32.mul
-  global.set $~lib/as-wasi/as-wasi/Time.SECOND
- )
- (func $start:~lib/as-wasi/index
-  call $start:~lib/as-wasi/as-wasi
- )
- (func $start:assembly/index
-  call $start:~lib/as-wasi/index
- )
+ (start $~start)
  (func $~lib/string/String#get:length (param $0 i32) (result i32)
   local.get $0
   i32.const 20
@@ -336,443 +313,6 @@
   end
   i32.const -1
  )
- (func $~lib/bindings/wasi_snapshot_preview1/iovec#set:buf (param $0 i32) (param $1 i32)
-  local.get $0
-  local.get $1
-  i32.store
- )
- (func $~lib/string/String.UTF8.encodeUnsafe (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
-  (local $11 i32)
-  (local $12 i32)
-  local.get $0
-  local.get $1
-  i32.const 1
-  i32.shl
-  i32.add
-  local.set $4
-  local.get $2
-  local.set $5
-  loop $while-continue|0
-   local.get $0
-   local.get $4
-   i32.lt_u
-   local.set $6
-   local.get $6
-   if
-    local.get $0
-    i32.load16_u
-    local.set $7
-    local.get $7
-    i32.const 128
-    i32.lt_u
-    if
-     local.get $5
-     local.get $7
-     i32.store8
-     local.get $5
-     i32.const 1
-     i32.add
-     local.set $5
-    else
-     local.get $7
-     i32.const 2048
-     i32.lt_u
-     if
-      local.get $7
-      i32.const 6
-      i32.shr_u
-      i32.const 192
-      i32.or
-      local.set $8
-      local.get $7
-      i32.const 63
-      i32.and
-      i32.const 128
-      i32.or
-      local.set $9
-      local.get $5
-      local.get $9
-      i32.const 8
-      i32.shl
-      local.get $8
-      i32.or
-      i32.store16
-      local.get $5
-      i32.const 2
-      i32.add
-      local.set $5
-     else
-      local.get $7
-      i32.const 64512
-      i32.and
-      i32.const 55296
-      i32.eq
-      if (result i32)
-       local.get $0
-       i32.const 2
-       i32.add
-       local.get $4
-       i32.lt_u
-      else
-       i32.const 0
-      end
-      if
-       local.get $0
-       i32.load16_u offset=2
-       local.set $9
-       local.get $9
-       i32.const 64512
-       i32.and
-       i32.const 56320
-       i32.eq
-       if
-        i32.const 65536
-        local.get $7
-        i32.const 1023
-        i32.and
-        i32.const 10
-        i32.shl
-        i32.add
-        local.get $9
-        i32.const 1023
-        i32.and
-        i32.or
-        local.set $7
-        local.get $7
-        i32.const 18
-        i32.shr_u
-        i32.const 240
-        i32.or
-        local.set $8
-        local.get $7
-        i32.const 12
-        i32.shr_u
-        i32.const 63
-        i32.and
-        i32.const 128
-        i32.or
-        local.set $10
-        local.get $7
-        i32.const 6
-        i32.shr_u
-        i32.const 63
-        i32.and
-        i32.const 128
-        i32.or
-        local.set $11
-        local.get $7
-        i32.const 63
-        i32.and
-        i32.const 128
-        i32.or
-        local.set $12
-        local.get $5
-        local.get $12
-        i32.const 24
-        i32.shl
-        local.get $11
-        i32.const 16
-        i32.shl
-        i32.or
-        local.get $10
-        i32.const 8
-        i32.shl
-        i32.or
-        local.get $8
-        i32.or
-        i32.store
-        local.get $5
-        i32.const 4
-        i32.add
-        local.set $5
-        local.get $0
-        i32.const 4
-        i32.add
-        local.set $0
-        br $while-continue|0
-       end
-      end
-      local.get $7
-      i32.const 12
-      i32.shr_u
-      i32.const 224
-      i32.or
-      local.set $9
-      local.get $7
-      i32.const 6
-      i32.shr_u
-      i32.const 63
-      i32.and
-      i32.const 128
-      i32.or
-      local.set $12
-      local.get $7
-      i32.const 63
-      i32.and
-      i32.const 128
-      i32.or
-      local.set $11
-      local.get $5
-      local.get $12
-      i32.const 8
-      i32.shl
-      local.get $9
-      i32.or
-      i32.store16
-      local.get $5
-      local.get $11
-      i32.store8 offset=2
-      local.get $5
-      i32.const 3
-      i32.add
-      local.set $5
-     end
-    end
-    local.get $0
-    i32.const 2
-    i32.add
-    local.set $0
-    br $while-continue|0
-   end
-  end
-  local.get $3
-  if
-   local.get $5
-   local.tee $6
-   i32.const 1
-   i32.add
-   local.set $5
-   local.get $6
-   i32.const 0
-   i32.store8
-  end
-  local.get $5
-  local.get $2
-  i32.sub
- )
- (func $~lib/util/number/decimalCount32 (param $0 i32) (result i32)
-  local.get $0
-  i32.const 100000
-  i32.lt_u
-  if
-   local.get $0
-   i32.const 100
-   i32.lt_u
-   if
-    i32.const 1
-    local.get $0
-    i32.const 10
-    i32.ge_u
-    i32.add
-    return
-   else
-    i32.const 3
-    local.get $0
-    i32.const 10000
-    i32.ge_u
-    i32.add
-    local.get $0
-    i32.const 1000
-    i32.ge_u
-    i32.add
-    return
-   end
-   unreachable
-  else
-   local.get $0
-   i32.const 10000000
-   i32.lt_u
-   if
-    i32.const 6
-    local.get $0
-    i32.const 1000000
-    i32.ge_u
-    i32.add
-    return
-   else
-    i32.const 8
-    local.get $0
-    i32.const 1000000000
-    i32.ge_u
-    i32.add
-    local.get $0
-    i32.const 100000000
-    i32.ge_u
-    i32.add
-    return
-   end
-   unreachable
-  end
-  unreachable
- )
- (func $~lib/bindings/wasi_snapshot_preview1/iovec#set:buf_len (param $0 i32) (param $1 i32)
-  local.get $0
-  local.get $1
-  i32.store offset=4
- )
- (func $~lib/wasi/index/abort (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  i32.const 0
-  i32.const 12
-  call $~lib/bindings/wasi_snapshot_preview1/iovec#set:buf
-  i32.const 12
-  local.set $4
-  local.get $4
-  i64.const 9071471065260641
-  i64.store
-  local.get $4
-  i32.const 7
-  i32.add
-  local.set $4
-  local.get $0
-  i32.const 0
-  i32.ne
-  if
-   local.get $4
-   local.get $0
-   local.get $0
-   call $~lib/string/String#get:length
-   local.get $4
-   i32.const 0
-   call $~lib/string/String.UTF8.encodeUnsafe
-   i32.add
-   local.set $4
-  end
-  local.get $4
-  i32.const 544106784
-  i32.store
-  local.get $4
-  i32.const 4
-  i32.add
-  local.set $4
-  local.get $1
-  i32.const 0
-  i32.ne
-  if
-   local.get $4
-   local.get $1
-   local.get $1
-   call $~lib/string/String#get:length
-   local.get $4
-   i32.const 0
-   call $~lib/string/String.UTF8.encodeUnsafe
-   i32.add
-   local.set $4
-  end
-  local.get $4
-  local.tee $5
-  i32.const 1
-  i32.add
-  local.set $4
-  local.get $5
-  i32.const 40
-  i32.store8
-  local.get $2
-  call $~lib/util/number/decimalCount32
-  local.set $6
-  local.get $4
-  local.get $6
-  i32.add
-  local.set $4
-  loop $do-continue|0
-   local.get $2
-   i32.const 10
-   i32.div_u
-   local.set $5
-   local.get $4
-   i32.const 1
-   i32.sub
-   local.tee $4
-   i32.const 48
-   local.get $2
-   i32.const 10
-   i32.rem_u
-   i32.add
-   i32.store8
-   local.get $5
-   local.set $2
-   local.get $2
-   local.set $7
-   local.get $7
-   br_if $do-continue|0
-  end
-  local.get $4
-  local.get $6
-  i32.add
-  local.set $4
-  local.get $4
-  local.tee $7
-  i32.const 1
-  i32.add
-  local.set $4
-  local.get $7
-  i32.const 58
-  i32.store8
-  local.get $3
-  call $~lib/util/number/decimalCount32
-  local.set $6
-  local.get $4
-  local.get $6
-  i32.add
-  local.set $4
-  loop $do-continue|1
-   local.get $3
-   i32.const 10
-   i32.div_u
-   local.set $7
-   local.get $4
-   i32.const 1
-   i32.sub
-   local.tee $4
-   i32.const 48
-   local.get $3
-   i32.const 10
-   i32.rem_u
-   i32.add
-   i32.store8
-   local.get $7
-   local.set $3
-   local.get $3
-   local.set $8
-   local.get $8
-   br_if $do-continue|1
-  end
-  local.get $4
-  local.get $6
-  i32.add
-  local.set $4
-  local.get $4
-  i32.const 2601
-  i32.store16
-  local.get $4
-  i32.const 2
-  i32.add
-  local.set $4
-  i32.const 0
-  local.get $4
-  i32.const 12
-  i32.sub
-  call $~lib/bindings/wasi_snapshot_preview1/iovec#set:buf_len
-  i32.const 2
-  i32.const 0
-  i32.const 1
-  i32.const 8
-  call $~lib/bindings/wasi_snapshot_preview1/fd_write
-  drop
-  i32.const 255
-  call $~lib/bindings/wasi_snapshot_preview1/proc_exit
- )
  (func $~lib/rt/itcms/Object#set:nextWithColor (param $0 i32) (param $1 i32)
   local.get $0
   local.get $1
@@ -836,7 +376,7 @@
      i32.const 160
      i32.const 159
      i32.const 16
-     call $~lib/wasi/index/abort
+     call $~lib/builtins/abort
      unreachable
     end
     local.get $2
@@ -902,7 +442,7 @@
     i32.const 160
     i32.const 127
     i32.const 18
-    call $~lib/wasi/index/abort
+    call $~lib/builtins/abort
     unreachable
    end
    return
@@ -919,7 +459,7 @@
    i32.const 160
    i32.const 131
    i32.const 16
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $1
@@ -942,7 +482,7 @@
    i32.const 352
    i32.const 22
    i32.const 28
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $1
@@ -1008,7 +548,7 @@
     i32.const 160
     i32.const 147
     i32.const 30
-    call $~lib/wasi/index/abort
+    call $~lib/builtins/abort
     unreachable
    else
     local.get $1
@@ -1134,7 +674,7 @@
    i32.const 432
    i32.const 273
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $2
@@ -1161,7 +701,7 @@
    i32.const 432
    i32.const 275
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $3
@@ -1215,7 +755,7 @@
    i32.const 432
    i32.const 288
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $1
@@ -1347,7 +887,7 @@
    i32.const 432
    i32.const 201
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $1
@@ -1364,7 +904,7 @@
    i32.const 432
    i32.const 203
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $1
@@ -1459,7 +999,7 @@
     i32.const 432
     i32.const 224
     i32.const 16
-    call $~lib/wasi/index/abort
+    call $~lib/builtins/abort
     unreachable
    end
    local.get $3
@@ -1524,7 +1064,7 @@
    i32.const 432
    i32.const 239
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   i32.const 1
@@ -1542,7 +1082,7 @@
    i32.const 432
    i32.const 240
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $4
@@ -1601,7 +1141,7 @@
    i32.const 432
    i32.const 256
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $0
@@ -1706,7 +1246,7 @@
    i32.const 432
    i32.const 381
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $1
@@ -1749,7 +1289,7 @@
     i32.const 432
     i32.const 388
     i32.const 16
-    call $~lib/wasi/index/abort
+    call $~lib/builtins/abort
     unreachable
    end
    local.get $1
@@ -1782,7 +1322,7 @@
     i32.const 432
     i32.const 401
     i32.const 5
-    call $~lib/wasi/index/abort
+    call $~lib/builtins/abort
     unreachable
    end
   end
@@ -2025,7 +1565,7 @@
    i32.const 432
    i32.const 565
    i32.const 3
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $1
@@ -2247,7 +1787,7 @@
      i32.const 160
      i32.const 228
      i32.const 20
-     call $~lib/wasi/index/abort
+     call $~lib/builtins/abort
      unreachable
     end
     local.get $0
@@ -2356,7 +1896,7 @@
    i32.const 432
    i32.const 462
    i32.const 30
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $0
@@ -2440,7 +1980,7 @@
    i32.const 432
    i32.const 334
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $0
@@ -2505,7 +2045,7 @@
      i32.const 432
      i32.const 347
      i32.const 18
-     call $~lib/wasi/index/abort
+     call $~lib/builtins/abort
      unreachable
     end
     local.get $0
@@ -2656,7 +2196,7 @@
    i32.const 432
    i32.const 361
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $3
@@ -2765,7 +2305,7 @@
     i32.const 432
     i32.const 500
     i32.const 16
-    call $~lib/wasi/index/abort
+    call $~lib/builtins/abort
     unreachable
    end
   end
@@ -2785,7 +2325,7 @@
    i32.const 432
    i32.const 502
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $0
@@ -3045,7 +2585,7 @@
    i32.const 160
    i32.const 260
    i32.const 31
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   global.get $~lib/rt/itcms/total
@@ -4739,18 +4279,18 @@
   local.get $1
   call $~lib/util/string/strtol<f64>
  )
- (func $assembly/index/UDPSocket#set:id (param $0 i32) (param $1 i32)
+ (func $assembly/index/UDPSocket#set:id (param $0 i32) (param $1 f64)
   local.get $0
   local.get $1
-  i32.store
+  f64.store
  )
- (func $assembly/index/UDPSocket#get:id (param $0 i32) (result i32)
+ (func $assembly/index/UDPSocket#get:id (param $0 i32) (result f64)
   local.get $0
-  i32.load
+  f64.load
  )
  (func $assembly/index/UDPSocket#sendBinary (param $0 i32) (param $1 i32) (param $2 f64) (param $3 i32)
   local.get $0
-  i32.load
+  f64.load
   local.get $1
   local.get $2
   local.get $3
@@ -4860,6 +4400,222 @@
   end
   local.get $4
  )
+ (func $~lib/string/String.UTF8.encodeUnsafe (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  local.get $0
+  local.get $1
+  i32.const 1
+  i32.shl
+  i32.add
+  local.set $4
+  local.get $2
+  local.set $5
+  loop $while-continue|0
+   local.get $0
+   local.get $4
+   i32.lt_u
+   local.set $6
+   local.get $6
+   if
+    local.get $0
+    i32.load16_u
+    local.set $7
+    local.get $7
+    i32.const 128
+    i32.lt_u
+    if
+     local.get $5
+     local.get $7
+     i32.store8
+     local.get $5
+     i32.const 1
+     i32.add
+     local.set $5
+    else
+     local.get $7
+     i32.const 2048
+     i32.lt_u
+     if
+      local.get $7
+      i32.const 6
+      i32.shr_u
+      i32.const 192
+      i32.or
+      local.set $8
+      local.get $7
+      i32.const 63
+      i32.and
+      i32.const 128
+      i32.or
+      local.set $9
+      local.get $5
+      local.get $9
+      i32.const 8
+      i32.shl
+      local.get $8
+      i32.or
+      i32.store16
+      local.get $5
+      i32.const 2
+      i32.add
+      local.set $5
+     else
+      local.get $7
+      i32.const 64512
+      i32.and
+      i32.const 55296
+      i32.eq
+      if (result i32)
+       local.get $0
+       i32.const 2
+       i32.add
+       local.get $4
+       i32.lt_u
+      else
+       i32.const 0
+      end
+      if
+       local.get $0
+       i32.load16_u offset=2
+       local.set $9
+       local.get $9
+       i32.const 64512
+       i32.and
+       i32.const 56320
+       i32.eq
+       if
+        i32.const 65536
+        local.get $7
+        i32.const 1023
+        i32.and
+        i32.const 10
+        i32.shl
+        i32.add
+        local.get $9
+        i32.const 1023
+        i32.and
+        i32.or
+        local.set $7
+        local.get $7
+        i32.const 18
+        i32.shr_u
+        i32.const 240
+        i32.or
+        local.set $8
+        local.get $7
+        i32.const 12
+        i32.shr_u
+        i32.const 63
+        i32.and
+        i32.const 128
+        i32.or
+        local.set $10
+        local.get $7
+        i32.const 6
+        i32.shr_u
+        i32.const 63
+        i32.and
+        i32.const 128
+        i32.or
+        local.set $11
+        local.get $7
+        i32.const 63
+        i32.and
+        i32.const 128
+        i32.or
+        local.set $12
+        local.get $5
+        local.get $12
+        i32.const 24
+        i32.shl
+        local.get $11
+        i32.const 16
+        i32.shl
+        i32.or
+        local.get $10
+        i32.const 8
+        i32.shl
+        i32.or
+        local.get $8
+        i32.or
+        i32.store
+        local.get $5
+        i32.const 4
+        i32.add
+        local.set $5
+        local.get $0
+        i32.const 4
+        i32.add
+        local.set $0
+        br $while-continue|0
+       end
+      end
+      local.get $7
+      i32.const 12
+      i32.shr_u
+      i32.const 224
+      i32.or
+      local.set $9
+      local.get $7
+      i32.const 6
+      i32.shr_u
+      i32.const 63
+      i32.and
+      i32.const 128
+      i32.or
+      local.set $12
+      local.get $7
+      i32.const 63
+      i32.and
+      i32.const 128
+      i32.or
+      local.set $11
+      local.get $5
+      local.get $12
+      i32.const 8
+      i32.shl
+      local.get $9
+      i32.or
+      i32.store16
+      local.get $5
+      local.get $11
+      i32.store8 offset=2
+      local.get $5
+      i32.const 3
+      i32.add
+      local.set $5
+     end
+    end
+    local.get $0
+    i32.const 2
+    i32.add
+    local.set $0
+    br $while-continue|0
+   end
+  end
+  local.get $3
+  if
+   local.get $5
+   local.tee $6
+   i32.const 1
+   i32.add
+   local.set $5
+   local.get $6
+   i32.const 0
+   i32.store8
+  end
+  local.get $5
+  local.get $2
+  i32.sub
+ )
  (func $~lib/arraybuffer/ArrayBuffer#get:byteLength (param $0 i32) (result i32)
   local.get $0
   i32.const 20
@@ -4884,7 +4640,7 @@
    i32.const 160
    i32.const 294
    i32.const 14
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $1
@@ -4959,151 +4715,29 @@
  )
  (func $assembly/index/UDPSocket#close (param $0 i32)
   local.get $0
-  i32.load
+  f64.load
   call $assembly/index/closeUDP
  )
  (func $assembly/index/UDPSocket#bind (param $0 i32) (param $1 f64) (param $2 i32)
   local.get $0
-  i32.load
+  f64.load
   local.get $1
   local.get $2
   call $assembly/index/bindUDP
  )
  (func $assembly/index/UDPSocket#on (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
-  i32.load
+  f64.load
   local.get $1
   local.get $2
-  i32.load
+  f64.load
   call $assembly/index/sendPointer
  )
- (func $~lib/as-wasi/as-wasi/Descriptor#constructor (param $0 i32) (param $1 i32) (result i32)
-  local.get $1
+ (func $assembly/index/test~anonymous|0 (param $0 i32)
+  nop
  )
- (func $~lib/as-wasi/as-wasi/Descriptor#writeStringLn (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  call $~stack_check
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.store
-  global.get $~lib/memory/__stack_pointer
-  local.get $1
-  i32.const 0
-  call $~lib/string/String.UTF8.encode
-  local.tee $2
-  i32.store
-  local.get $2
-  call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-  local.set $3
-  i32.const 704
-  local.set $4
-  local.get $4
-  local.get $2
-  i32.store
-  local.get $4
-  local.get $3
-  i32.store offset=4
-  i32.const 736
-  local.set $5
-  local.get $5
-  i32.const 10
-  i32.store8
-  local.get $4
-  local.get $5
-  i32.store offset=8
-  local.get $4
-  i32.const 1
-  i32.store offset=12
-  i32.const 752
-  local.set $6
-  local.get $0
-  local.set $7
-  local.get $7
-  local.get $4
-  i32.const 2
-  local.get $6
-  call $~lib/bindings/wasi_snapshot_preview1/fd_write
-  drop
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.add
-  global.set $~lib/memory/__stack_pointer
- )
- (func $~lib/as-wasi/as-wasi/Descriptor#writeString (param $0 i32) (param $1 i32) (param $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  call $~stack_check
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.store
-  local.get $2
-  if
-   local.get $0
-   local.get $1
-   call $~lib/as-wasi/as-wasi/Descriptor#writeStringLn
-   global.get $~lib/memory/__stack_pointer
-   i32.const 4
-   i32.add
-   global.set $~lib/memory/__stack_pointer
-   return
-  end
-  global.get $~lib/memory/__stack_pointer
-  local.get $1
-  i32.const 0
-  call $~lib/string/String.UTF8.encode
-  local.tee $3
-  i32.store
-  local.get $3
-  call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-  local.set $4
-  i32.const 768
-  local.set $5
-  local.get $5
-  local.get $3
-  i32.store
-  local.get $5
-  local.get $4
-  i32.store offset=4
-  i32.const 784
-  local.set $6
-  local.get $0
-  local.set $7
-  local.get $7
-  local.get $5
-  i32.const 1
-  local.get $6
-  call $~lib/bindings/wasi_snapshot_preview1/fd_write
-  drop
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.add
-  global.set $~lib/memory/__stack_pointer
- )
- (func $~lib/as-wasi/as-wasi/Console.log (param $0 i32)
-  local.get $0
-  i32.const 1
-  call $~lib/as-wasi/as-wasi/Console.write
- )
- (func $~lib/string/String.__concat (param $0 i32) (param $1 i32) (result i32)
-  local.get $0
-  local.get $1
-  call $~lib/string/String#concat
+ (func $assembly/index/test~anonymous|1 (param $0 i32)
+  nop
  )
  (func $~lib/rt/itcms/__pin (param $0 i32) (result i32)
   (local $1 i32)
@@ -5118,11 +4752,11 @@
    i32.const 3
    i32.eq
    if
-    i32.const 1216
+    i32.const 928
     i32.const 160
     i32.const 337
     i32.const 7
-    call $~lib/wasi/index/abort
+    call $~lib/builtins/abort
     unreachable
    end
    local.get $1
@@ -5150,11 +4784,11 @@
   i32.const 3
   i32.ne
   if
-   i32.const 1280
+   i32.const 992
    i32.const 160
    i32.const 351
    i32.const 5
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   global.get $~lib/rt/itcms/state
@@ -5238,10 +4872,10 @@
   i32.const 96
   local.get $0
   call $~lib/rt/itcms/__visit
-  i32.const 1216
+  i32.const 928
   local.get $0
   call $~lib/rt/itcms/__visit
-  i32.const 1280
+  i32.const 992
   local.get $0
   call $~lib/rt/itcms/__visit
  )
@@ -5275,34 +4909,31 @@
  (func $~lib/rt/__visit_members (param $0 i32) (param $1 i32)
   block $invalid
    block $~lib/function/Function<%28~lib/string/String%29=>void>
-    block $~lib/as-wasi/as-wasi/Descriptor
-     block $~lib/typedarray/Uint8Array
-      block $assembly/index/UDPSocket
-       block $~lib/arraybuffer/ArrayBufferView
-        block $~lib/string/String
-         block $~lib/arraybuffer/ArrayBuffer
-          local.get $0
-          i32.const 8
-          i32.sub
-          i32.load
-          br_table $~lib/arraybuffer/ArrayBuffer $~lib/string/String $~lib/arraybuffer/ArrayBufferView $assembly/index/UDPSocket $~lib/typedarray/Uint8Array $~lib/as-wasi/as-wasi/Descriptor $~lib/function/Function<%28~lib/string/String%29=>void> $invalid
-         end
-         return
+    block $~lib/typedarray/Uint8Array
+     block $assembly/index/UDPSocket
+      block $~lib/arraybuffer/ArrayBufferView
+       block $~lib/string/String
+        block $~lib/arraybuffer/ArrayBuffer
+         local.get $0
+         i32.const 8
+         i32.sub
+         i32.load
+         br_table $~lib/arraybuffer/ArrayBuffer $~lib/string/String $~lib/arraybuffer/ArrayBufferView $assembly/index/UDPSocket $~lib/typedarray/Uint8Array $~lib/function/Function<%28~lib/string/String%29=>void> $invalid
         end
         return
        end
-       local.get $0
-       local.get $1
-       call $~lib/arraybuffer/ArrayBufferView~visit
        return
       end
+      local.get $0
+      local.get $1
+      call $~lib/arraybuffer/ArrayBufferView~visit
       return
      end
-     local.get $0
-     local.get $1
-     call $~lib/typedarray/Uint8Array~visit
      return
     end
+    local.get $0
+    local.get $1
+    call $~lib/typedarray/Uint8Array~visit
     return
    end
    local.get $0
@@ -5313,13 +4944,6 @@
   unreachable
  )
  (func $~start
-  global.get $~started
-  if
-   return
-  end
-  i32.const 1
-  global.set $~started
-  call $start:assembly/index
   memory.size
   i32.const 16
   i32.shl
@@ -5343,16 +4967,16 @@
   global.get $~lib/memory/__data_end
   i32.lt_s
   if
-   i32.const 17792
-   i32.const 17840
+   i32.const 17504
+   i32.const 17552
    i32.const 1
    i32.const 1
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
  )
  (func $assembly/index/UDPSocket#constructor (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
+  (local $2 f64)
   (local $3 i32)
   global.get $~lib/memory/__stack_pointer
   i32.const 16
@@ -5369,14 +4993,14 @@
   i32.eqz
   if
    global.get $~lib/memory/__stack_pointer
-   i32.const 4
+   i32.const 8
    i32.const 3
    call $~lib/rt/itcms/__new
    local.tee $0
    i32.store
   end
   local.get $0
-  i32.const 0
+  f64.const 0
   call $assembly/index/UDPSocket#set:id
   local.get $1
   i32.const 32
@@ -5423,7 +5047,7 @@
   i32.const 0
   i32.store
   local.get $0
-  i32.load
+  f64.load
   local.get $1
   i32.const 0
   call $~lib/string/String.UTF8.encode
@@ -5450,88 +5074,11 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
  )
- (func $~lib/as-wasi/as-wasi/Console.write (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  call $~stack_check
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.store
-  i32.const 0
-  i32.const 1
-  call $~lib/as-wasi/as-wasi/Descriptor#constructor
-  local.set $2
-  global.get $~lib/memory/__stack_pointer
-  local.get $2
-  i32.store
-  local.get $2
-  local.get $0
-  local.get $1
-  call $~lib/as-wasi/as-wasi/Descriptor#writeString
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.add
-  global.set $~lib/memory/__stack_pointer
- )
- (func $assembly/index/test~anonymous|0 (param $0 i32)
-  (local $1 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 8
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  call $~stack_check
-  global.get $~lib/memory/__stack_pointer
-  i64.const 0
-  i64.store
-  i32.const 864
-  local.set $1
-  global.get $~lib/memory/__stack_pointer
-  local.get $1
-  i32.store offset=4
-  local.get $1
-  local.get $0
-  call $~lib/string/String.__concat
-  local.set $1
-  global.get $~lib/memory/__stack_pointer
-  local.get $1
-  i32.store
-  local.get $1
-  call $~lib/as-wasi/as-wasi/Console.log
-  global.get $~lib/memory/__stack_pointer
-  i32.const 8
-  i32.add
-  global.set $~lib/memory/__stack_pointer
- )
- (func $assembly/index/test~anonymous|1 (param $0 i32)
-  (local $1 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  call $~stack_check
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.store
-  i32.const 1008
-  local.set $1
-  global.get $~lib/memory/__stack_pointer
-  local.get $1
-  i32.store
-  local.get $1
-  call $~lib/as-wasi/as-wasi/Console.log
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.add
-  global.set $~lib/memory/__stack_pointer
- )
- (func $assembly/index/test
+ (func $assembly/index/test (result i32)
   (local $0 i32)
   (local $1 i32)
   global.get $~lib/memory/__stack_pointer
-  i32.const 20
+  i32.const 16
   i32.sub
   global.set $~lib/memory/__stack_pointer
   call $~stack_check
@@ -5543,9 +5090,6 @@
   i64.store offset=8
   global.get $~lib/memory/__stack_pointer
   i32.const 0
-  i32.store offset=16
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
   i32.const 608
   local.set $1
   global.get $~lib/memory/__stack_pointer
@@ -5555,60 +5099,56 @@
   call $assembly/index/UDPSocket#constructor
   local.tee $0
   i32.store offset=4
+  local.get $0
   i32.const 640
+  local.set $1
+  global.get $~lib/memory/__stack_pointer
+  local.get $1
+  i32.store
+  local.get $1
+  i32.const 688
   local.set $1
   global.get $~lib/memory/__stack_pointer
   local.get $1
   i32.store offset=8
   local.get $1
-  call $~lib/as-wasi/as-wasi/Console.log
+  call $assembly/index/UDPSocket#on
   local.get $0
-  i32.const 816
+  i32.const 720
   local.set $1
   global.get $~lib/memory/__stack_pointer
   local.get $1
   i32.store
   local.get $1
-  i32.const 928
+  i32.const 768
   local.set $1
   global.get $~lib/memory/__stack_pointer
   local.get $1
-  i32.store offset=12
+  i32.store offset=8
   local.get $1
   call $assembly/index/UDPSocket#on
   local.get $0
-  i32.const 960
-  local.set $1
-  global.get $~lib/memory/__stack_pointer
-  local.get $1
-  i32.store
-  local.get $1
-  i32.const 1056
-  local.set $1
-  global.get $~lib/memory/__stack_pointer
-  local.get $1
-  i32.store offset=12
-  local.get $1
-  call $assembly/index/UDPSocket#on
-  local.get $0
-  i32.const 1088
+  i32.const 800
   local.set $1
   global.get $~lib/memory/__stack_pointer
   local.get $1
   i32.store
   local.get $1
   f64.const 3e3
-  i32.const 1168
+  i32.const 880
   local.set $1
   global.get $~lib/memory/__stack_pointer
   local.get $1
-  i32.store offset=16
+  i32.store offset=12
   local.get $1
   call $assembly/index/UDPSocket#send
+  i32.const 1
+  local.set $1
   global.get $~lib/memory/__stack_pointer
-  i32.const 20
+  i32.const 16
   i32.add
   global.set $~lib/memory/__stack_pointer
+  local.get $1
  )
  (func $~lib/string/String#replace (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
@@ -5812,7 +5352,7 @@
    i32.const 496
    i32.const 1826
    i32.const 5
-   call $~lib/wasi/index/abort
+   call $~lib/builtins/abort
    unreachable
   end
   local.get $3
@@ -5831,7 +5371,7 @@
      i32.const 496
      i32.const 1831
      i32.const 9
-     call $~lib/wasi/index/abort
+     call $~lib/builtins/abort
      unreachable
     end
     local.get $7
@@ -5843,7 +5383,7 @@
     i32.const 496
     i32.const 1835
     i32.const 7
-    call $~lib/wasi/index/abort
+    call $~lib/builtins/abort
     unreachable
    end
   else
@@ -5861,7 +5401,7 @@
     i32.const 496
     i32.const 1840
     i32.const 7
-    call $~lib/wasi/index/abort
+    call $~lib/builtins/abort
     unreachable
    end
   end
@@ -5893,71 +5433,6 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
   local.get $9
- )
- (func $~lib/string/String#concat (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  call $~stack_check
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.store
-  local.get $0
-  call $~lib/string/String#get:length
-  i32.const 1
-  i32.shl
-  local.set $2
-  local.get $1
-  call $~lib/string/String#get:length
-  i32.const 1
-  i32.shl
-  local.set $3
-  local.get $2
-  local.get $3
-  i32.add
-  local.set $4
-  local.get $4
-  i32.const 0
-  i32.eq
-  if
-   i32.const 64
-   local.set $6
-   global.get $~lib/memory/__stack_pointer
-   i32.const 4
-   i32.add
-   global.set $~lib/memory/__stack_pointer
-   local.get $6
-   return
-  end
-  global.get $~lib/memory/__stack_pointer
-  local.get $4
-  i32.const 1
-  call $~lib/rt/itcms/__new
-  local.tee $5
-  i32.store
-  local.get $5
-  local.get $0
-  local.get $2
-  call $~lib/memory/memory.copy
-  local.get $5
-  local.get $2
-  i32.add
-  local.get $1
-  local.get $3
-  call $~lib/memory/memory.copy
-  local.get $5
-  local.set $6
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.add
-  global.set $~lib/memory/__stack_pointer
-  local.get $6
  )
  (func $export:assembly/index/UDPSocket#constructor (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)

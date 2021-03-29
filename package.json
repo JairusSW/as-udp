@@ -2,11 +2,7 @@
   "dependencies": {
     "@assemblyscript/loader": "^0.18.16",
     "as-bind": "^0.6.1",
-    "as-bitray": "^2.4.1",
-    "as-console": "^3.0.0",
-    "as-wasi": "^0.4.4",
-    "assemblyscript": "^0.18.17",
-    "bitray": "^2.1.1"
+    "assemblyscript": "^0.18.17"
   },
   "scripts": {
     "asbuild:untouched": "asc assembly/index.ts --target debug --exportRuntime --exportTable",

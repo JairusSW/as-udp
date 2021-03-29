@@ -1,5 +1,11 @@
 const myModule = require('../');
 
-// Test socket(s)
+if (myModule.test()) {
 
-myModule.test()
+    console.log('It Works')
+
+} else {
+
+    console.log('Failed')
+
+}

@@ -3,10 +3,10 @@
 
 ## Setting up
 
-1. Enable As-bind
-2. Add --exportTable flag
+1. Add --exportTable flag
+2. Add --exportRuntime flag
 
-## Usage (wip)
+## Usage
 
 **AssemblyScript Socket**
 
@@ -25,6 +25,12 @@ socket.on('listening', () => {
 
     console.log('Listening')
 
+})
+
+socket.on('error', (err) => {
+
+    console.log('Error: ' + err)
+    
 })
 
 socket.send('Hello From AssemblyScript!', 3000, 'localhost')

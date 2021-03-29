@@ -1,19 +1,15 @@
-import 'wasi'
-
-import { Console } from 'as-wasi'
-
 // JS Imports
-declare function sendUDP(id: i32, data: Uint8Array, port: number, address: string): void
-declare function initUDP(type: number): i32
-declare function closeUDP(id: i32): void
-declare function bindUDP(id: i32, port: number, address: string): void
-declare function sendPointer(id: i32, event: string, pointer: i32): void
+declare function sendUDP(id: number, data: Uint8Array, port: number, address: string): void
+declare function initUDP(type: number): number
+declare function closeUDP(id: number): void
+declare function bindUDP(id: number, port: number, address: string): void
+declare function sendPointer(id: number, event: string, pointer: number): void
 // Miscellanious
 
 // API
 export class UDPSocket {
 
-  private id: i32 = 0
+  private id: number = 0
 
   constructor(type: string) {
 
@@ -47,7 +43,7 @@ export class UDPSocket {
   // WIP: Add string support for as-bind
   on(event: string, callback: (data: string) => void): void {
 
-    sendPointer(this.id, event, load<i32>(changetype<usize>(callback)))
+    sendPointer(this.id, event, load<number>(changetype<usize>(callback)))
     // NOTE: Does not call every time! Only calls if once.
   }
   
@@ -55,25 +51,20 @@ export class UDPSocket {
 
 // Socket Testing
 
-export function test(): void {
+export function test(): boolean {
 
   const socket = new UDPSocket('udp4')
 
-  Console.log('Sending Message (AS)...')
-
   socket.on('message', (data) => {
 
-    Console.log('Response (AS): ' + data)
-    
   })
 
   socket.on('listening', () => {
-
-    Console.log('Listening (AS)')
     
   })
 
   socket.send('Hello From AssemblyScript!', 3000, 'localhost')
   
+  return true
   
 }

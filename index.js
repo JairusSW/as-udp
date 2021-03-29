@@ -1,4 +1,5 @@
 const fs = require("fs");
+
 const loader = require("@assemblyscript/loader")
 
 let wasmModule
@@ -7,14 +8,8 @@ let sockets = []
 
 const dgram = require('dgram');
 
-const { WASI } = require('wasi')
-
-const wasi = new WASI()
-
 const imports = {
-    wasi_snapshot_preview1: wasi.wasiImport,
     index: {
-        wasi_snapshot_preview1: wasi.wasiImport,
         sendPointer: (id, event, pointer) => {
 
             if (!sockets[id]) return
@@ -114,7 +109,5 @@ const imports = {
 }
 
 wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/untouched.wasm"), imports);
-
-wasi.start(wasmModule)
 
 module.exports = wasmModule.exports
