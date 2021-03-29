@@ -1,11 +1,5 @@
 const myModule = require('./index');
 
-// Test Server
+// Test socket
 
-// No Server. Focus On Client myModule.server()
-
-// Test Client
-
-myModule.client1()
-
-//myModule.client2()
+myModule.test()

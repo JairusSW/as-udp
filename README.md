@@ -1,7 +1,7 @@
 # As-UDP
-**A Experimental UDP Server Running In AssemblyScript**
+**UDP bindings for AssemblyScript**
 
-## Usage (WIP)
+## Testing (WIP)
 
 1. Start the server (node server.js)
 
@@ -15,22 +15,41 @@ node server.js
 node test.js
 ```
 
+## Usage (wip)
+
+**AssemblyScript Socket**
+
+```js
+import { UDPSocket } from 'as-udp'
+
+const socket = new UDPSocket('udp4')
+
+socket.on('message', (data) => {
+//--> Only supports incoming numbers
+    console.log('Message: ' + data)
+
+})
+
+socket.on('listening', () => {
+
+    console.log('Listening')
+
+})
+
+socket.send('Hello From AssemblyScript!', 3000, 'localhost')
+
+```
+
 # Todo
 - Add Multiple Client Support ✅
 - Add Socket.on(event, callback) function ✅
 - Socket.on can be other than number ❌ (as-bind)
-- Add Multicast ❌
 - Add Server Support ✅
 - Add Multiple Server Support ✅
-- Add Bitray/Buffer Support? ❌
+- Add Uint8Array Support? ✅
 - Finish socket.on function ✅
-- Add socket.on('data') ✅
+- Add socket.on('data') ✅ (Can only pass numbers through rn. :P)
 - Add socket.on('listening') ✅
 - Add socket.on('connection') ✅
-- Add socket.on('error') 🌓
+- Add socket.on('error') ✅ (Still need to add error data. Waiting for as-bind)
 - Add socket.on('close') ✅
-- Bring Nodejs dgram (udp) api to AS? (possible) ❌
-
-# Next projects
-- Bring WebSocket to AS. (npm ws api? Or browser version.)
-- Bring nodejs 'net' module to AS (TCP?)

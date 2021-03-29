@@ -1,111 +1,111 @@
 const fs = require("fs");
 const loader = require("as-bind").AsBind;
-const Bitray = require('bitray')
-const dgram = require('dgram');
 
 let wasmModule
 
-let point
+let sockets = []
 
-let pointerFunctions = {
-    message: null,
-    error: null,
-    listening: null,
-    connect: null,
-    close: null
-}
-
-let clients = []
+const dgram = require('dgram');
 
 const imports = {
     index: {
-        sendPointer: (event, pointer) => {
+        sendPointer: (id, event, pointer) => {
 
-            point = pointer
-
-            pointerFunctions[event.toLowerCase().trim()] = wasmModule.exports.table.get(pointer)
-
+            if (!sockets[id]) return
+    
+            sockets[id]['pointers'][event.toLowerCase().trim()] = wasmModule.exports.table.get(pointer)
+    
         },
         initUDP: (type) => {
-
-            console.log('(JS) Created New Client. Id: ', clients.length)
-
-            clients.push(dgram.createSocket(type))
-
-            let id = clients.length - 1
-
-            clients[id].on('message', (data, info) => {
+    
+            console.log('(JS) Created New socket. Id: ', sockets.length)
+    
+            sockets.push({
+                pointers: {
+                    message: null,
+                    error: null,
+                    listening: null,
+                    connect: null,
+                    close: null
+                },
+                socket: dgram.createSocket(`udp${type}`)
+            })
+    
+            let id = sockets.length - 1
+    
+            let socket = sockets[id]
+    
+            socket.socket.on('message', (data, info) => {
             
                 // Only supports numbers :(
-
-                const func = pointerFunctions['message']
-
+    
+                const func = socket.pointers['message']
+    
                 if (isNaN(parseInt(data.toString()))) return
                 // Only numbers are allowed.
-
+    
                 if (typeof func === 'function') func(parseInt(data.toString()))
                 // Send if type is number
-
+    
             })
-
-            clients[id].on('listening', () => {
+    
+            socket.socket.on('listening', () => {
             
-                const func = pointerFunctions['listening']
-
+                const func = socket.pointers['listening']
+    
                 if (typeof func === 'function') func()
-
+    
             })
-
-            clients[id].on('close', () => {
+    
+            socket.socket.on('close', () => {
             
-                const func = pointerFunctions['close']
-
+                const func = socket.pointers['close']
+    
                 if (typeof func === 'function') func()
-
+    
             })
-
-            clients[id].on('error', () => {
+    
+            socket.socket.on('error', () => {
             
-                const func = pointerFunctions['error']
-
+                const func = socket.pointers['error']
+    
                 if (typeof func === 'function') func()
-
+    
             })
-
-            clients[id].on('connect', () => {
+    
+            socket.socket.on('connect', () => {
             
-                const func = pointerFunctions['connect']
-
+                const func = socket.pointers['connect']
+    
                 if (typeof func === 'function') func()
-
+    
             })
             
             return id
-
+    
         },
         sendUDP: (id, message, port, address) => {
-
-            clients[id].send(message, port, address)
-
+    
+            sockets[id]['socket'].send(message, port, address)
+    
             return
-
+    
         },
         closeUDP: (id) => {
-
-            clients[id].close()
-
+    
+            sockets[id]['socket'].close()
+    
         },
         bindUDP: (id, port, address) => {
-
-            clients[id].bind(port, address)
-
+    
+            sockets[id]['socket'].bind(port, address)
+    
         }
     }
-};
+}
 
 require('as-console/bind')(imports)
 
 wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/untouched.wasm"), imports);
 
-console.log(wasmModule.exports.getDataCallbackPointer)
 module.exports = wasmModule.exports;

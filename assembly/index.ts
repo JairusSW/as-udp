@@ -4,10 +4,10 @@ import { console } from 'as-console'
 
 // JS Imports
 declare function sendUDP(id: i32, data: Uint8Array, port: number, address: string): void
-declare function initUDP(type: string): i32
+declare function initUDP(type: number): i32
 declare function closeUDP(id: i32): void
 declare function bindUDP(id: i32, port: number, address: string): void
-declare function sendPointer(event: string, pointer: i32, id: i32): void
+declare function sendPointer(id: number, event: string, pointer: i32): void
 // Miscellanious
 
 // API
@@ -17,18 +17,26 @@ export class UDPSocket {
 
   constructor(type: string) {
 
-    let id = initUDP(type)
+    let id = initUDP(parseInt(type.replace('udp', '')))
 
     this.id = id
 
   }
-  send(data: Uint8Array, port: number, address: string): void {
+
+  sendBinary(data: Uint8Array, port: number, address: string): void {
 
     sendUDP(this.id, data, port, address)
 
   }
+  send(data: string, port: number, address: string): void {
+
+    sendUDP(this.id, Uint8Array.wrap(String.UTF8.encode(data)), port, address)
+
+  }
   close(): void {
+
     closeUDP(this.id)
+
   }
   bind(port: number, address: string): void {
 
@@ -38,61 +46,34 @@ export class UDPSocket {
 
   // WIP: Add string support for as-bind
   on(event: string, callback: (data: number) => void): void {
-  // Add selectable events. Rn, it defaults to socket.on('message', ... ✅
-    sendPointer(event, load<i32>(changetype<usize>(callback)), this.id)
-    
+
+    sendPointer(this.id, event, load<i32>(changetype<usize>(callback)))
+    // NOTE: Does not call every time! Only calls if once.
   }
+  
 }
 
-// Client/Server Testing
+// Socket Testing
 
-export function client1(): void {
+export function test(): void {
 
   const socket = new UDPSocket('udp4')
 
-  console.log('Client1 Sending Message (AS)...')
+  console.log('Sending Message (AS)...')
 
   socket.on('message', (data) => {
 
-    console.log('Client1 Data from Callback Func (AS): ' + data.toString())
+    console.log('Response (AS): ' + data.toString())
     
   })
 
   socket.on('listening', () => {
 
-    console.log('Client Is Listening')
+    console.log('Listening (AS)')
     
   })
 
-  socket.send(Uint8Array.wrap(String.UTF8.encode('Client1, Hello From AssemblyScript!')), 3000, 'localhost')
+  socket.send('Hello From AssemblyScript!', 3000, 'localhost')
   
   
-}
-// Test for multiple Clients ✅
-export function client2(): void {
-
-  const socket = new UDPSocket('udp4')
-
-  console.log('Client2 Sending Message (AS)...')
-
-  socket.send(Uint8Array.wrap(String.UTF8.encode('Client2, Hello From AssemblyScript!')), 3000, 'localhost')
-
-  socket.on('message', (data) => {
-
-    console.log('Client2 Data from Callback Func (AS): ' + data.toString())
-
-    // Send Response back to server. Need closures? Got an error.
-    //socket.send(Uint8Array.wrap(String.UTF8.encode('Hey, Server! Got the message!')), 3000, 'localhost')
-    
-  })
-  
-}
-
-// Test Server ✅
-export function server(): void {
-
-  const socket = new UDPSocket('udp4')
-
-  socket.bind(3000, '127.0.0.1')
-
 }
