@@ -3,12 +3,11 @@
 
 ## Setting up
 
-1. Add --exportTable flag
-2. Add --exportRuntime flag
+- Add --exportTable and --exportRuntime flags
 
 ## Usage
 
-**AssemblyScript Socket**
+**UDP Socket**
 
 ```js
 import { UDPSocket } from 'as-udp'
@@ -16,7 +15,7 @@ import { UDPSocket } from 'as-udp'
 const socket = new UDPSocket('udp4')
 
 socket.on('message', (data) => {
-//--> Only supports incoming numbers
+
     console.log('Message: ' + data)
 
 })
