@@ -9,6 +9,7 @@ declare function sendPointer(id: number, event: string, pointer: number): void
 // API
 export class UDPSocket {
 
+  // Support multiple sockets. (based on id)
   private id: number = 0
 
   constructor(type: string) {
@@ -32,6 +33,7 @@ export class UDPSocket {
   close(): void {
 
     closeUDP(this.id)
+    // Need to delete from the socket list without messing it up
 
   }
   bind(port: number, address: string): void {
@@ -40,10 +42,9 @@ export class UDPSocket {
 
   }
 
-  // WIP: Add string support for as-bind
   on(event: string, callback: (data: string) => void): void {
-
-    sendPointer(this.id, event, load<number>(changetype<usize>(callback)))
+    // It works!
+    sendPointer(this.id, event, load<i32>(changetype<usize>(callback)))
     // NOTE: Does not call every time! Only calls if once.
   }
   

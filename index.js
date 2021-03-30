@@ -43,7 +43,6 @@ const imports = {
                 const func = socket.pointers['message']
     
                 if (typeof func === 'function') func(messagePtr)
-                // Send if type is number
     
             })
     
