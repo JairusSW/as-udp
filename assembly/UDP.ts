@@ -1,6 +1,6 @@
 // JS Imports
 declare function sendUDP(id: number, data: Uint8Array, port: number, address: string): void
-declare function initUDP(type: string): number
+declare function initUDP(type: number): number
 declare function closeUDP(id: number): void
 declare function bindUDP(id: number, port: number, address: string): void
 declare function sendPointer(id: number, event: string, pointer: number): void
@@ -14,7 +14,7 @@ export class UDPSocket {
 
   constructor(type: string) {
 
-    let id = initUDP(type)
+    let id = initUDP(parseInt(type.replace('udp', '')))
 
     this.id = id
 

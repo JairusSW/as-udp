@@ -22,7 +22,7 @@ module.exports = `
                     connect: null,
                     close: null
                 },
-                socket: dgram.createSocket(wasmModule.exports.__getString(type))
+                socket: dgram.createSocket('udp' + type + ''))
             })
     
             let id = sockets.length - 1
