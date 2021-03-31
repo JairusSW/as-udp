@@ -5,8 +5,8 @@
     "assemblyscript": "^0.18.19"
   },
   "scripts": {
-    "asbuild:untouched": "asc assembly/index.ts --target debug --exportRuntime --exportTable",
-    "asbuild:optimized": "asc assembly/index.ts --target release --exportRuntime --exportTable",
+    "asbuild:untouched": "asc assembly/UDP.ts --target debug --exportRuntime --exportTable",
+    "asbuild:optimized": "asc assembly/UDP.ts --target release --exportRuntime --exportTable",
     "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
     "test": "node tests",
     "start": "node server.js"
@@ -16,8 +16,9 @@
   },
   "name": "as-udp",
   "description": "UDP bindings for AssemblyScript",
-  "version": "1.0.1",
-  "types": "./assembly/index.ts",
+  "version": "1.0.2",
+  "types": "./assembly/UDP.ts",
+  "ascMain": "./assembly/UDP.ts",
   "main": "./imports.js",
   "directories": {
     "test": "tests"
