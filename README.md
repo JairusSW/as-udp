@@ -3,7 +3,26 @@
 
 ## Setting up
 
-- Add --exportTable and --exportRuntime flags
+**Add --exportTable and --exportRuntime flags**
+
+**Edit main file**
+
+```js
+// main.js
+
++ let wasmModule
+
++ const udpImports = require('as-udp')
+
+const imports = {
+    ...eval(udpImports)
+}
+
+- const wasmModule = loader.instantaniateSync()
+
++ wasmModule = loader.instantaniateSync()
+
+```
 
 ## Usage
 

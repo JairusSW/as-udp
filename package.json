@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "@assemblyscript/loader": "^0.18.16",
+    "@assemblyscript/loader": "^0.18.19",
     "as-bind": "^0.6.1",
-    "assemblyscript": "^0.18.17"
+    "assemblyscript": "^0.18.19"
   },
   "scripts": {
     "asbuild:untouched": "asc assembly/index.ts --target debug --exportRuntime --exportTable",
@@ -16,8 +16,9 @@
   },
   "name": "as-udp",
   "description": "UDP bindings for AssemblyScript",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "types": "./assembly/index.ts",
+  "main": "./imports.js",
   "directories": {
     "test": "tests"
   },

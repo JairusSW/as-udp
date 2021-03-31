@@ -1,6 +1,6 @@
 // JS Imports
 declare function sendUDP(id: number, data: Uint8Array, port: number, address: string): void
-declare function initUDP(type: number): number
+declare function initUDP(type: string): number
 declare function closeUDP(id: number): void
 declare function bindUDP(id: number, port: number, address: string): void
 declare function sendPointer(id: number, event: string, pointer: number): void
@@ -14,7 +14,7 @@ export class UDPSocket {
 
   constructor(type: string) {
 
-    let id = initUDP(parseInt(type.replace('udp', '')))
+    let id = initUDP(type)
 
     this.id = id
 
@@ -47,25 +47,5 @@ export class UDPSocket {
     sendPointer(this.id, event, load<i32>(changetype<usize>(callback)))
     // NOTE: Does not call every time! Only calls if once.
   }
-  
-}
-
-// Socket Testing
-
-export function test(): boolean {
-
-  const socket = new UDPSocket('udp4')
-
-  socket.on('message', (data) => {
-
-  })
-
-  socket.on('listening', () => {
-    
-  })
-
-  socket.send('Hello From AssemblyScript!', 3000, 'localhost')
-  
-  return true
   
 }
