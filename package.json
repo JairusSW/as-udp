@@ -16,7 +16,7 @@
   },
   "name": "as-udp",
   "description": "UDP bindings for AssemblyScript",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "types": "./assembly/UDP.ts",
   "ascMain": "./assembly/UDP.ts",
   "main": "./imports.js",
