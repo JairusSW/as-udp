@@ -10,17 +10,15 @@
 ```js
 // main.js
 
-+ let wasmModule
-
-+ const udpImports = require('as-udp')
++ const udp = require('as-udp')
 
 const imports = {
-    ...eval(udpImports)
+    ...udp.wasmImports
 }
 
-- const wasmModule = loader.instantaniateSync()
+const wasmModule = loader.instantaniateSync()
 
-+ wasmModule = loader.instantaniateSync()
++ udp.wasmExports = wasmModule.exports
 
 ```
 
